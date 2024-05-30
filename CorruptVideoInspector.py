@@ -13,7 +13,7 @@ from tkinter import ttk
 from tkmacosx import Button as MacButton
 from datetime import datetime
 
-VIDEO_EXTENSIONS = ['3g2', '.3gp', '.3gp2', '.3gpp', '.amr', '.amv', '.asf', '.av1', '.avi', '.bdmv', '.bik', '.d2v', '.divx', '.drc', '.dsa', '.dsm', '.dss', '.dsv', '.evo', '.f4v', '.flc', '.fli', '.flic', '.flv', '.h263', '.h264', '.h265', '.h266', '.hdmov', '.ifo', '.ivf', '.m1v', '.m2p', '.m2t', '.m2ts', '.m2v', '.m4v', '.mkv', '.mp2v', '.mp4', '.mp4v', '.mpe', '.mpeg', '.mpeg2', '.mpg', '.mpg2', '.mpls', '.mpv2', '.mpv4', '.mov', '.mts', '.ogm', '.ogv', '.pss', '.pva', '.qt', '.ram', '.rm', '.rmm', '.rmvb', '.roq', '.rpm', '.smil', '.smk', '.swf', '.tp', '.tpr', '.ts', '.vmaf', '.vob', '.vp6', '.vp8', '.vp9', '.webm', '.wm', '.wmp', '.wmv', '.yuv']
+VIDEO_EXTENSIONS = ['.264', '.265', '.3g2', '.3gp', '.3gp2', '.3gpp', '.amr', '.amv', '.asf', '.av1', '.avi', '.bdmv', '.bik', '.d2v', '.divx', '.drc', '.dsa', '.dsm', '.dss', '.dsv', '.evo', '.f4v', '.flc', '.fli', '.flic', '.flv', '.h263', '.h264', '.h265', '.h266', '.hdmov', '.ifo', '.ivf', '.m1v', '.m2p', '.m2t', '.m2ts', '.m2v', '.m4v', '.mkv', '.mp2v', '.mp4', '.mp4v', '.mpe', '.mpeg', '.mpeg2', '.mpg', '.mpg2', '.mpls', '.mpv2', '.mpv4', '.mov', '.mts', '.ogm', '.ogv', '.pss', '.pva', '.qt', '.ram', '.rm', '.rmm', '.rmvb', '.roq', '.rpm', '.smil', '.smk', '.swf', '.tp', '.tpr', '.ts', '.vmaf', '.vob', '.vp6', '.vp8', '.vp9', '.webm', '.wm', '.wmp', '.wmv', '.yuv']
 
 # ========================== CLASSES ===========================
 
@@ -261,7 +261,7 @@ def inspectVideoFiles(directory, tkinter_window, listbox_completed_videos, index
             elif isWindowsOs():
                 global g_windows_pid
                 ffmpeg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'ffmpeg.exe'))
-                proc = subprocess.Popen(f'"{ffmpeg_path}" -v error -i "{video.full_filepath}" -f null error.log', shell=True,
+                proc = subprocess.Popen(f'"{ffmpeg_path}" -threads 0 -v error -i "{video.full_filepath}" -f null error.log', shell=True,
                                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 g_windows_pid = proc.pid
             else:
