@@ -256,7 +256,7 @@ def inspectVideoFiles(directory, tkinter_window, listbox_completed_videos, index
             proc = ''
             if isMacOs():
                 global g_mac_pid
-                proc = subprocess.Popen(f'./ffmpeg -v error -i {shlex.quote(video.full_filepath)} -f null - 2>&1', shell=True,
+                proc = subprocess.Popen(f'ffmpeg -v error -i {shlex.quote(video.full_filepath)} -f null - 2>&1', shell=True,
                                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 g_mac_pid = proc.pid
             elif isWindowsOs():
