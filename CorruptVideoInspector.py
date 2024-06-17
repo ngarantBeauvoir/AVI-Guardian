@@ -102,7 +102,7 @@ def verify_ffmpeg_still_running(root):
     ffmpeg_window = tk.Toplevel(root)
     ffmpeg_window.resizable(False, False)
     ffmpeg_window.geometry("400x150")
-    ffmpeg_window.title("Verify ffmpeg Status")
+    ffmpeg_window.title("Vérification du status de ffmpeg")
     output = ''
     cpu_usage = ''
 
@@ -111,9 +111,10 @@ def verify_ffmpeg_still_running(root):
         output = proc.communicate()[0].decode('utf-8').strip()
         if "ffmpeg" in output:
             cpu_usage = output.split()[1]
-            output = f"ffmpeg is currently running.\nffmpeg is currently using {cpu_usage}% of CPU"
+            # output = f"ffmpeg is currently running.\nffmpeg is currently using {cpu_usage}% of CPU"
+            output = f"ffmpeg est en court d'exécution.\nffmpeg utilise {cpu_usage}% du processeur"
         else:
-            output = "ffmpeg is NOT currently running!"
+            output = "ffmpeg n'est PAS en court d'exécution"
     if isWindowsOs():
         windowsFfmpegCpuCalculationPrimer()
         found = False
@@ -124,9 +125,9 @@ def verify_ffmpeg_still_running(root):
                 found = True
                 break
         if found:
-            output = f"ffmpeg is currently running.\nffmpeg is currently using {cpu_usage}% of CPU"
+            output = f"ffmpeg est en court d'exécution.\nffmpeg utilise {cpu_usage}% du processeur"
         else:
-            output = "ffmpeg is NOT currently running!"
+            output = "ffmpeg n'est PAS en court d'exécution"
 
     label_ffmpeg_result = tk.Label(ffmpeg_window, width=375, text=output, font=('Helvetica', 14))
     label_ffmpeg_result.pack(fill=tk.X, pady=20)
@@ -138,17 +139,17 @@ def kill_ffmpeg_warning(root, log_file):
         ffmpeg_kill_window.geometry("400x300")
     elif isWindowsOs():
         ffmpeg_kill_window.geometry("400x400")
-    ffmpeg_kill_window.title("Safely Quit Program")
+    ffmpeg_kill_window.title("Quitter l'application sécuritairement")
 
-    label_ffmpeg_kill = tk.Label(ffmpeg_kill_window, wraplength=375, width=375, text="This application spawns a subprocess named 'ffmpeg'. If this program is quit using the 'X' button, for example, the 'ffmpeg' subprocess will continue to run in the background of the host computer, draining the CPU resources. Clicking the button below will terminate the 'ffmpeg' subprocess and safely quit the application. This will prematurely end all video processing. Only do this if you want to safely exit the program and clean all subprocesses", font=('Helvetica', 14))
+    label_ffmpeg_kill = tk.Label(ffmpeg_kill_window, wraplength=375, width=375, text="Cette application lance un sous-processus nommé 'ffmpeg'. Si ce programme est fermé en utilisant le bouton 'X', par exemple, le sous-processus 'ffmpeg' continuera de fonctionner en arrière-plan de l'ordinateur hôte, drainant les ressources du processeur. Cliquez sur le bouton ci-dessous pour terminer le sous-processus 'ffmpeg' et quitter en toute sécurité l'application. Cela mettra fin prématurément à tout traitement vidéo. Ne faites cela que si vous souhaitez quitter en toute sécurité le programme et nettoyer tous les sous-processus.", font=('Helvetica', 14))
     label_ffmpeg_kill.pack(fill=tk.X, pady=20)
 
     if isMacOs():
         # https://stackoverflow.com/questions/1529847/how-to-change-the-foreground-or-background-colour-of-a-tkinter-button-on-mac-os
-        button_kill_ffmpeg = MacButton(ffmpeg_kill_window, background='#E34234', borderless=1, foreground='white', text="Terminate Program", width=500, command=lambda: kill_ffmpeg(root, log_file))
+        button_kill_ffmpeg = MacButton(ffmpeg_kill_window, background='#E34234', borderless=1, foreground='white', text="Fermer programme", width=500, command=lambda: kill_ffmpeg(root, log_file))
         button_kill_ffmpeg.pack(pady=10)
     elif isWindowsOs():
-        button_kill_ffmpeg = tk.Button(ffmpeg_kill_window, background='#E34234', foreground='white', text="Terminate Program", width=200, command=lambda: kill_ffmpeg(root, log_file))
+        button_kill_ffmpeg = tk.Button(ffmpeg_kill_window, background='#E34234', foreground='white', text="Fermer programme", width=200, command=lambda: kill_ffmpeg(root, log_file))
         button_kill_ffmpeg.pack(pady=10)
 
 def kill_ffmpeg(root, log_file):
@@ -167,7 +168,7 @@ def kill_ffmpeg(root, log_file):
             # subprocess.Popen("taskkill /F /T /PID %i" % g_windows_pid, shell=True)
             log_file.write(f'---USER MANUALLY TERMINATED PROGRAM---\n')
             for proc in psutil.process_iter():
-                if proc.name() == "ffmpeg.exe" or proc.name() == "CorruptVideoInspector.exe":
+                if proc.name() == "ffmpeg.exe" or proc.name() == "AVIGuardian.exe":
                     proc.kill()
             log_file.flush()
         except Exception as e:
@@ -358,7 +359,7 @@ def start_program(directory, root, index_start, log_file, label_chosen_directory
         button_start.destroy()
         listbox_completed_videos.destroy()
 
-        label_progress_text = tk.Label(root, text="Progress:", font=('Helvetica Bold', 18))
+        label_progress_text = tk.Label(root, text="Progrès:", font=('Helvetica Bold', 18))
         label_progress_text.pack(fill=tk.X, pady=10)
 
         g_progress.set("0%")
@@ -369,7 +370,7 @@ def start_program(directory, root, index_start, log_file, label_chosen_directory
         progress_bar.pack(pady=(0, 20))
         progress_bar.start()
 
-        label_currently_processing_text = tk.Label(root, text="Currently Processing:", font=('Helvetica Bold', 18))
+        label_currently_processing_text = tk.Label(root, text="En cours de processus:", font=('Helvetica Bold', 18))
         label_currently_processing_text.pack(fill=tk.X, pady=10)
 
         g_count.set("0 / 0")
@@ -426,12 +427,12 @@ def afterDirectoryChosen(root, directory):
 
     totalVideos = countAllVideoFiles(directory)
 
-    label_chosen_directory = tk.Label(root, text="Chosen directory:", font=('Helvetica Bold', 18))
+    label_chosen_directory = tk.Label(root, text="Répertoire choisi:", font=('Helvetica Bold', 18))
     label_chosen_directory.pack(fill=tk.X, pady=5)
     label_chosen_directory_var = tk.Label(root, wraplength=450, text=f"{directory}", font=('Helvetica', 14))
     label_chosen_directory_var.pack(fill=tk.X, pady=(5, 20))
 
-    label_video_count = tk.Label(root, text="Total number of videos found:", font=('Helvetica Bold', 18))
+    label_video_count = tk.Label(root, text="Nombre de vidéos trouvées:", font=('Helvetica Bold', 18))
     label_video_count.pack(fill=tk.X, pady=5)
     label_video_count_var = tk.Label(root, text=f"{totalVideos}", font=('Helvetica', 16))
     label_video_count_var.pack(fill=tk.X, pady=(5, 20))
@@ -453,7 +454,7 @@ def afterDirectoryChosen(root, directory):
     root.update()
 
     label_index_start = tk.Label(root,
-                                 text=f"Start at video index (1 - {countAllVideoFiles(directory)}):",
+                                 text=f"Commencer l'index vidéo à (1 - {countAllVideoFiles(directory)}):",
                                  font=('Helvetica Bold', 18))
     label_index_start.pack(fill=tk.X, pady=5)
 
@@ -463,21 +464,22 @@ def afterDirectoryChosen(root, directory):
     entry_index_input.pack(fill=tk.X, padx=200)
 
     label_explanation = tk.Label(root, wraplength=450,
-                                 text="The default is '1'. Set index to '1' if you want to start from the beginning and process all videos. If you are resuming a previous operation, then set the index to the desired number. Also note, each run will overwrite the _Logs and _Results files.",
+                                #  text="The default is '1'. Set index to '1' if you want to start from the beginning and process all videos. If you are resuming a previous operation, then set the index to the desired number. Also note, each run will overwrite the _Logs and _Results files.",
+                                 text="Par défaut, l'index vidéo est à '1'. Définissez l'index à '1' si vous souhaitez commencer à partir du début et traiter toutes les vidéos. Si vous reprenez une opération précédente, définissez l'index à la valeur souhaitée. Remarquez également, chaque exécution va écraser les fichiers _Logs et _Results.",
                                  font=('Helvetica Italic', 12))
     label_explanation.pack(fill=tk.X, pady=5, padx=20)
 
     if totalVideos > 0:
-        button_start = tk.Button(root, text="Start Inspecting", width=25, command=lambda: start_program(directory, root, int(entry_index_input.get()), log_file, label_chosen_directory, label_chosen_directory_var, label_video_count, label_video_count_var, label_index_start, entry_index_input, label_explanation, button_start, listbox_videos_found_with_index))
+        button_start = tk.Button(root, text="Commencer l'inspection", width=25, command=lambda: start_program(directory, root, int(entry_index_input.get()), log_file, label_chosen_directory, label_chosen_directory_var, label_video_count, label_video_count_var, label_index_start, entry_index_input, label_explanation, button_start, listbox_videos_found_with_index))
         button_start.pack(pady=20)
     else:
         root.withdraw()
         error_window = tk.Toplevel(root)
         error_window.resizable(False, False)
         error_window.geometry("400x200")
-        error_window.title("Error")
+        error_window.title("Erreur")
 
-        label_error_msg = tk.Label(error_window, width=375, text="No video files found in selected directory!", font=('Helvetica', 14))
+        label_error_msg = tk.Label(error_window, width=375, text="Aucun fichier vidéo trouvé dans ce répertoire", font=('Helvetica', 14))
         label_error_msg.pack(fill=tk.X, pady=20)
 
         button_exit = tk.Button(error_window, text="Exit", width=30, command=lambda: exit())
@@ -490,7 +492,7 @@ if isLinuxOs():
     exit()
 
 root = tk.Tk()
-root.title("Corrupt Video Inspector")
+root.title("AVI-Guardian")
 if isMacOs():
     root.geometry("500x650")
 if isWindowsOs():
@@ -503,10 +505,11 @@ g_currently_processing = tk.StringVar()
 g_mac_pid = ''
 g_windows_pid = ''
 
-label_select_directory = tk.Label(root, wraplength=450, justify="left", text="Select a directory to search for all video files within the chosen directory and all of its containing subdirectories", font=('Helvetica', 16))
+# label_select_directory = tk.Label(root, wraplength=450, justify="left", text="Select a directory to search for all video files within the chosen directory and all of its containing subdirectories", font=('Helvetica', 16))
+label_select_directory = tk.Label(root, wraplength=450, justify="left", text="Choisissez un répertoire pour rechercher tous les fichiers vidéos dans le répertoire choisi et tout les dossiers enfant.", font=('Helvetica', 16))
 label_select_directory.pack(fill=tk.X, pady=20, padx=20)
 
-button_select_directory = tk.Button(root, text="Select Directory", width=20, command=lambda: selectDirectory(root, label_select_directory, button_select_directory))
+button_select_directory = tk.Button(root, text="Choisir le répertoire", width=20, command=lambda: selectDirectory(root, label_select_directory, button_select_directory))
 button_select_directory.pack(pady=20)
 
 root.mainloop()
