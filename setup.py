@@ -8,7 +8,7 @@ Usage:
 from setuptools import setup
 
 APP = ['AVIGuardian.py']
-DATA_FILES = []
+DATA_FILES = ['./ffmpeg']
 OPTIONS = {}
 
 setup(
