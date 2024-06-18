@@ -50,7 +50,7 @@ Téléchargez l'application [ici](https://github.com/ngarantBeauvoir/AVI-Guardia
 
 1. Créez l'exécutable avec [`py2app`](https://py2app.readthedocs.io/en/latest/) :
 
-    `python setup.py py2app -A`
+    `python setup.py py2app`
 
 1. Lancez l'application :
 
