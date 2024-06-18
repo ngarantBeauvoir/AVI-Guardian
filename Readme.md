@@ -23,27 +23,48 @@ Téléchargez l'application [ici](https://github.com/ngarantBeauvoir/AVI-Guardia
 
 1. Lancez l'application et choisissez un dossier vidéo.
 
-2. Lancez l'analyse
+2. Lancez l'analyse.
 
 ## Exemple
 
 ![Démo Mac OS](./assets/demo-mac.png)
 
-## Contribution
+## Installation manuelle
 
 1. Clonez le dépôt :
 
 
-`git clone https://github.com/ngarantBeauvoir/AVI-Guardian`
+    `git clone https://github.com/ngarantBeauvoir/AVI-Guardian`
 
 2. Créez un environnement virtuel Python :
 
-`python3 -m venv .venv`
+    `python3 -m venv .venv`
 
-`source .venv/bin/activate`
+    `source .venv/bin/activate`
 
 2. Installez les dépendances requises :
 
-`pip install -r requirements.txt`
+    `pip install -r requirements.txt`
+
+### Mac OS
+
+1. Créez l'exécutable avec [`py2app`](https://py2app.readthedocs.io/en/latest/) :
+
+    `python setup.py py2app -A`
+
+1. Lancez l'application :
+
+    `open -a dist/AVI-Guardian.app`
+
+    **Ou**
+
+    `./dist/AVI-Guardian.app/Contents/MacOS/AVI-Guardian`
+
+    **Ou**
+
+    Double-clic sur l'application dans Finder.
+
+
+## Contribution
 
 Les contributions sont les bienvenues ! Veuillez ouvrir un problème ou soumettre une demande d'extraction si vous avez des améliorations ou des corrections de bogues.
