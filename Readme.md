@@ -36,9 +36,13 @@ Téléchargez l'application [ici](https://github.com/ngarantBeauvoir/AVI-Guardia
 
 `git clone https://github.com/ngarantBeauvoir/AVI-Guardian`
 
+2. Créez un environnement virtuel Python :
+
+`python3 -m venv .venv`
+
+`source .venv/bin/activate`
 
 2. Installez les dépendances requises :
-
 
 `pip install -r requirements.txt`
 
