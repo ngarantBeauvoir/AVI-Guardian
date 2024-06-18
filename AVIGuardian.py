@@ -392,15 +392,15 @@ def start_program(directory, root, index_start, log_file, label_chosen_directory
         listbox_completed_videos.bind('<Double-Button-1>', lambda e: "break")
         listbox_completed_videos.bind('<B1-Motion>', lambda e: "break")
 
-        button_ffmpeg_verify = tk.Button(root, text="ffmpeg Status", width=200, command=lambda: verify_ffmpeg_still_running(root))
+        button_ffmpeg_verify = tk.Button(root, text="Status de ffmpeg", width=200, command=lambda: verify_ffmpeg_still_running(root))
         button_ffmpeg_verify.pack(pady=10)
 
         if isMacOs():
             # https://stackoverflow.com/questions/1529847/how-to-change-the-foreground-or-background-colour-of-a-tkinter-button-on-mac-os
-            button_kill_ffmpeg = MacButton(root, background='#E34234', borderless=1, foreground='white', text="Safely Quit", width=500, command=lambda: kill_ffmpeg_warning(root, log_file))
+            button_kill_ffmpeg = MacButton(root, background='#E34234', borderless=1, foreground='white', text="Quitter sécuritairement", width=500, command=lambda: kill_ffmpeg_warning(root, log_file))
             button_kill_ffmpeg.pack(pady=10)
         elif isWindowsOs():
-            button_kill_ffmpeg = tk.Button(root, background='#E34234', foreground='white', text="Safely Quit", width=200, command=lambda: kill_ffmpeg_warning(root, log_file))
+            button_kill_ffmpeg = tk.Button(root, background='#E34234', foreground='white', text="Quitter sécuritairement", width=200, command=lambda: kill_ffmpeg_warning(root, log_file))
             button_kill_ffmpeg.pack(pady=10)
 
         thread = Thread(target=inspectVideoFiles, args=(directory, root, listbox_completed_videos, index_start, log_file, progress_bar))
