@@ -9,7 +9,9 @@ from setuptools import setup
 
 APP = ['AVIGuardian.py']
 DATA_FILES = ['./ffmpeg']
-OPTIONS = {}
+OPTIONS = {
+    'iconfile': './icon.icns'
+}
 
 setup(
     app=APP,
