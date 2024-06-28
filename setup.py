@@ -8,9 +8,29 @@ Usage:
 from setuptools import setup
 
 APP = ['AVIGuardian.py']
-DATA_FILES = ['./ffmpeg']
+APP_NAME = "AVIGuardian"
+DATA_FILES = ['./ffmpeg', ".venv/lib/python3.12/site-packages"]
 OPTIONS = {
-    'iconfile': './icon.icns'
+    # Icone
+    'iconfile': './icon.icns',
+
+    # Info.plist
+    'plist': {
+        'CFBundleName': APP_NAME,
+        'CFBundleDisplayName': APP_NAME,
+        'CFBundleGetInfoString': "Détecteur de fichiers vidéo corrompus",
+        'CFBundleIdentifier': "com.ngarantBeauvoir",
+        'CFBundleVersion': "0.0.1",
+        'CFBundleShortVersionString': "0.0.1",
+        'NSHumanReadableCopyright': u"Copyright © 2024, Nicolas Garant, Tout droits réservés",
+    },
+    # Emulation
+    # 'argv_emulation': False,
+    'argv_emulation': True,
+
+    # Inclusions
+    "includes": ['csv', 'subprocess', 'tkinter', 'shlex', 'platform', 'psutil', 'signal', 'time', 'threading', 'tkinter', 'tkinter', 'tkmacosx', 'datetime', 'setuptools'],
+    # 'packages': [".venv/lib/python3.12/site-packages"]
 }
 
 setup(
