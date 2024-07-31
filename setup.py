@@ -25,8 +25,8 @@ OPTIONS = {
         'NSHumanReadableCopyright': u"Copyright © 2024, Nicolas Garant, Tout droits réservés",
     },
     # Emulation
-    # 'argv_emulation': False,
-    'argv_emulation': True,
+    'argv_emulation': False,
+    # 'argv_emulation': True,
 
     # Inclusions
     "includes": ['csv', 'subprocess', 'tkinter', 'shlex', 'platform', 'psutil', 'signal', 'time', 'threading', 'tkinter', 'tkinter', 'tkmacosx', 'datetime', 'setuptools'],
