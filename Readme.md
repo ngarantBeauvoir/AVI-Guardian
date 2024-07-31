@@ -46,6 +46,8 @@ Téléchargez l'application [ici](https://github.com/ngarantBeauvoir/AVI-Guardia
 
     `pip install -r requirements.txt`
 
+    `brew install python-tk`
+
 ### Mac OS
 
 1. Créez l'exécutable avec [`py2app`](https://py2app.readthedocs.io/en/latest/) :
